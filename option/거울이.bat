@@ -1,5 +1,5 @@
 @echo off
-chcp 65001 >nul
+chcp 949 >nul
 setlocal
 
 echo ==== Check to Python or Version ====
