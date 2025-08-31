@@ -37,9 +37,9 @@ def transcribe_audio(audio, sr_rate=16000):
         
         return text
     except sr.UnknownValueError:
-        print("음성을 인식할 수 없습니다. 😢")
+        print("Can't not understand audio. 😢")
     except sr.RequestError as e:
-        print(f"구글 API 요청 실패: {e}")
+        print(f"Faild to request Google Speech Recognition service: {e}")
 
 
 def searching_title_substring(text):
@@ -84,14 +84,14 @@ if __name__ == "__main__":
             try:
                 
                 text = recognizer.recognize_google(audio, language="ko-KR").replace(" ", "")
-                print("음성 인식 결과:", text)
+                print("Recognized Text :", text)
                 flag = True
                 if "거울" in text:
                     speak("네 거상 관련 도우미 거울이 입니다. 무엇을 도와드릴까요?")
                     while flag:
                         subAudio = recognizer.listen(source, timeout=5, phrase_time_limit=15)
                         subText = recognizer.recognize_google(subAudio, language="ko-KR").replace(" ", "")
-                        print("서브 음성 인식 결과 :", subText)
+                        print("Sub Recognized Text :", subText)
                         if ("사통" in subText or "사통팔달" in subText):
                             serverId = 0
                             for key in server_list.keys():
