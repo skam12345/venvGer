@@ -57,8 +57,105 @@ def searching_title_substring(text):
             cleaned_text = cleaned_text.replace(keyword, "")
         
     return cleaned_text
-            
 
+def calcul_mercenary(text):
+    keywords = ["용병제작", "서버"]
+    
+    tokens = okt.morphs(text)
+    filtered_tokens = [word for word in tokens]
+    cleaned_text = ''.join(filtered_tokens)        
+    if any(keyword in cleaned_text for keyword in keywords):
+        for keyword in keywords:
+            for key in server_list.keys():
+                if key in cleaned_text:
+                    cleaned_text = cleaned_text.replace(key, "")
+            cleaned_text = cleaned_text.replace(keyword, "")
+    if "각성" in cleaned_text:
+        cleaned_text = cleaned_text.replace("각성", "각성+")
+    if "바지라오" in cleaned_text:
+        cleaned_text = cleaned_text.replace("재상", "재상+바지라오")
+    if "화목란" in cleaned_text:
+        cleaned_text = cleaned_text.replace("여걸", "여걸+화목란")
+    if "초선" in cleaned_text:
+        cleaned_text = cleaned_text.replace("무희", "무희+초선")
+    if "마조" in cleaned_text:
+        cleaned_text = cleaned_text.replace("해신", "해신+마조")
+    if "홍길동" in cleaned_text:
+        cleaned_text = cleaned_text.replace("도사", "도사+홍길동")
+    if "노부츠나" in cleaned_text:
+        cleaned_text = cleaned_text.replace("군신", "군신+노부츠나")
+    if "주몽" in cleaned_text:
+        cleaned_text = cleaned_text.replace("신궁", "신궁+주몽")
+    if "맹획" in cleaned_text:
+        cleaned_text = cleaned_text.replace("야왕", "야왕+맹획")
+    if "최무선" in cleaned_text:
+        cleaned_text = cleaned_text.replace("도령", "도령+최무선")
+    if "악바르" in cleaned_text:
+        cleaned_text = cleaned_text.replace("악바르", "악바르+대제")
+    if "여포" in cleaned_text:
+        cleaned_text = cleaned_text.replace("봉선", "봉선+여포")
+    if "모치츠키" in cleaned_text:
+        cleaned_text = cleaned_text.replace("치요메", "모치츠키+치요메")
+    if "만선야" in cleaned_text:
+        cleaned_text = cleaned_text.replace("선인", "선인+만선야")
+    if  "보쿠텐" in cleaned_text:
+        cleaned_text = cleaned_text.replace("보쿠텐", "검성+보쿠텐")
+    if "레지나" in cleaned_text:
+        cleaned_text = cleaned_text.replace("레지나", "레지나+술타나")
+    if "기린" in cleaned_text:
+        cleaned_text = cleaned_text.replace("기린", "신수+기린")
+    if "현무" in cleaned_text:
+        cleaned_text = cleaned_text.replace("현무", "신수+현무")
+    if "백호" in cleaned_text:
+        cleaned_text = cleaned_text.replace("백호", "신수+백호")
+    if "주작" in cleaned_text:
+        cleaned_text = cleaned_text.replace("주작", "신수+주작")
+    if "아이라바타" in cleaned_text:
+        cleaned_text = cleaned_text.replace("아이라바타", "신수+아이라바타")
+    if "도철" in cleaned_text:
+        cleaned_text = cleaned_text.replace("도철", "고용+도철")
+    if "도을" in cleaned_text:
+        cleaned_text = cleaned_text.replace("도을", "고용+도을")
+    if "혼돈" in cleaned_text:
+        cleaned_text = cleaned_text.replace("혼돈", "고용+혼돈")
+    if "궁기" in cleaned_text:
+        cleaned_text = cleaned_text.replace("궁기", "고용+궁기")
+    if "각도을" in cleaned_text:
+        cleaned_text = cleaned_text.replace("각도을", "각성+도을")
+    if "각도철" in cleaned_text:
+        cleaned_text = cleaned_text.replace("각도철", "각성+도철")
+    if "각혼돈" in cleaned_text:
+        cleaned_text = cleaned_text.replace("각혼돈", "각성+혼돈")
+    if "각궁기" in cleaned_text:
+        cleaned_text = cleaned_text.replace("각궁기", "각성+궁기")
+    if "광목" in cleaned_text:
+        cleaned_text = cleaned_text.replace("광목", "광목천왕")
+    if "다문" in cleaned_text:
+        cleaned_text = cleaned_text.replace("다문", "다문천왕")
+    if "증장" in cleaned_text:
+        cleaned_text = cleaned_text.replace("증장", "증장천왕")
+    if "지국" in cleaned_text:
+        cleaned_text = cleaned_text.replace("지국", "지국천왕")
+    if "각광목" in cleaned_text:
+        cleaned_text = cleaned_text.replace("각광목", "각성+광목천왕")
+    if "각다문" in cleaned_text:
+        cleaned_text = cleaned_text.replace("각다문", "각성+다문천왕")
+    if "각증장" in cleaned_text:
+        cleaned_text = cleaned_text.replace("각증장", "각성+증장천왕")
+    if "각지국" in cleaned_text:
+        cleaned_text = cleaned_text.replace("각지국", "각성+지국천왕")
+    if "부동" in cleaned_text:
+        cleaned_text = cleaned_text.replace("부동", "부동명왕")
+    if "대위덕" in cleaned_text:
+        cleaned_text = cleaned_text.replace("대위덕", "대위덕명왕")
+    if "군다리" in cleaned_text:
+        cleaned_text = cleaned_text.replace("군다리", "군다리명왕")
+    if "항삼" in cleaned_text:
+        cleaned_text = cleaned_text.replace("항삼", "항삼세명왕")
+    if "야차" in cleaned_text:
+        cleaned_text = cleaned_text.replace("야차", "금강야차명왕")
+    return cleaned_text
+    
 def speak(text):
     def run():
         engine = tts.init()
@@ -137,18 +234,18 @@ if __name__ == "__main__":
                                 if key in subText:
                                     serverId = server_list[key]
                                     break
-                            keywords = searching_title_substring(subText.replace(" ", ""))
+                            keywords = calcul_mercenary(subText)
                             if serverId == 0:
                                 
                                 speak(f"거타 용병 제작 계산기 메뉴 {keywords}를 실행합니다.")
                                 print("")
                                 time.sleep(0.3)
-                                webbrowser.open(f"https://geota.co.kr/gersang/mercenary&keyword={keywords}")
+                                webbrowser.open(f"https://geota.co.kr/gersang/calculator/mercenary?keyword={keywords}")
                                 flag = False
                             else:
                                 speak(f"거타 용병 제작 계산기 {key} 서버 {keywords}를 실행합니다.")
                                 time.sleep(0.3)
-                                webbrowser.open(f"https://geota.co.kr/gersang/mercenary?serverId={serverId}&keyword={keywords}")
+                                webbrowser.open(f"https://geota.co.kr/gersang/calculator/mercenary?serverId={serverId}&keyword={keywords}")
                                 flag = False
                         elif "종료" in subText or "그만" in subText or "끝" in subText:
                             speak("도움이 필요하시면 언제든지 불러주세요. 안녕히 계세요!")

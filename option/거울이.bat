@@ -58,8 +58,7 @@ call :CheckAndInstall pyaudio
 echo ==== Completed to Package ====
 
 :: main.py 실행 (BAT 종료되지 않고 그대로 실행됨)
-start /B python ..\main.py
-
+start /B py E:\HobbyProject\AboutGersang\gersang-sound-helper-bot\venvGer\main.py
 pause
 endlocal
 exit /b
