@@ -54,6 +54,7 @@ call :CheckAndInstall speechrecognition
 call :CheckAndInstall numpy
 call :CheckAndInstall konlpy
 call :CheckAndInstall pyaudio
+call :CheckAndInstall selenium
 
 echo ==== Completed to Package ====
 

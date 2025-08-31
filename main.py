@@ -1,10 +1,12 @@
 from konlpy.tag import Okt
+from selenium import webdriver
 import numpy as np
 import speech_recognition as sr
 import pyttsx3 as tts
 import webbrowser
 import time
 import threading
+import shutil
 # ✅ Recognizer 인식기 초기화
 recognizer = sr.Recognizer()
 server_list = {
@@ -24,6 +26,7 @@ server_list = {
 }
 
 okt = Okt()
+driver = webdriver.Chrome()
 
 def transcribe_audio(audio, sr_rate=16000):
     try:
@@ -202,12 +205,12 @@ if __name__ == "__main__":
                                 speak(f"거타 사통팔달 메뉴 {keywords}를 실행합니다.")
                                 print("")
                                 time.sleep(0.3)
-                                webbrowser.open(f"https://geota.co.kr/gersang/satongpaldal?keyword={keywords}")
+                                driver.get(f"https://geota.co.kr/gersang/satongpaldal?keyword={keywords}")
                                 flag = False
                             else:
                                 speak(f"거타 사통팔달 {key} 서버를 {keywords} 실행합니다.")
                                 time.sleep(0.3)
-                                webbrowser.open(f"https://geota.co.kr/gersang/satongpaldal?serverId={serverId}&keyword={keywords}")
+                                driver.get(f"https://geota.co.kr/gersang/satongpaldal?serverId={serverId}&keyword={keywords}")
                                 flag = False
                         elif "육전" in subText or "육의전" in subText:
                             serverId = 0
@@ -221,12 +224,12 @@ if __name__ == "__main__":
                                 speak(f"거타 육의전 메뉴 {keywords}를 실행합니다.")
                                 print("")
                                 time.sleep(0.3)
-                                webbrowser.open(f"https://geota.co.kr/gersang/yukeuijeon&itemName={keywords}&orderDirection=asc&page=1")
+                                driver.get(f"https://geota.co.kr/gersang/yukeuijeon&itemName={keywords}&orderDirection=asc&page=1")
                                 flag = False
                             else:
                                 speak(f"거타 육의전 {key} 서버 {keywords}를 실행합니다.")
                                 time.sleep(0.3)
-                                webbrowser.open(f"https://geota.co.kr/gersang/yukeuijeon?serverId={serverId}&itemName={keywords}&orderDirection=asc&page=1")
+                                driver.get(f"https://geota.co.kr/gersang/yukeuijeon?serverId={serverId}&itemName={keywords}&orderDirection=asc&page=1")
                                 flag = False
                         elif "용병제작" in subText or "용제" in subText:
                             serverId = 0
@@ -240,12 +243,12 @@ if __name__ == "__main__":
                                 speak(f"거타 용병 제작 계산기 메뉴 {keywords}를 실행합니다.")
                                 print("")
                                 time.sleep(0.3)
-                                webbrowser.open(f"https://geota.co.kr/gersang/calculator/mercenary?keyword={keywords}")
+                                driver.get(f"https://geota.co.kr/gersang/calculator/mercenary?keyword={keywords}")
                                 flag = False
                             else:
                                 speak(f"거타 용병 제작 계산기 {key} 서버 {keywords}를 실행합니다.")
                                 time.sleep(0.3)
-                                webbrowser.open(f"https://geota.co.kr/gersang/calculator/mercenary?serverId={serverId}&keyword={keywords}")
+                                driver.get(f"https://geota.co.kr/gersang/calculator/mercenary?serverId={serverId}&keyword={keywords}")
                                 flag = False
                         elif "종료" in subText or "그만" in subText or "끝" in subText:
                             speak("도움이 필요하시면 언제든지 불러주세요. 안녕히 계세요!")
