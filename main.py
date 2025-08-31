@@ -131,6 +131,25 @@ if __name__ == "__main__":
                                 time.sleep(0.3)
                                 webbrowser.open(f"https://geota.co.kr/gersang/yukeuijeon?serverId={serverId}&itemName={keywords}&orderDirection=asc&page=1")
                                 flag = False
+                        elif "용병제작" in subText or "용제" in subText:
+                            serverId = 0
+                            for key in server_list.keys():
+                                if key in subText:
+                                    serverId = server_list[key]
+                                    break
+                            keywords = searching_title_substring(subText.replace(" ", ""))
+                            if serverId == 0:
+                                
+                                speak(f"거타 용병 제작 계산기 메뉴 {keywords}를 실행합니다.")
+                                print("")
+                                time.sleep(0.3)
+                                webbrowser.open(f"https://geota.co.kr/gersang/mercenary&keyword={keywords}")
+                                flag = False
+                            else:
+                                speak(f"거타 용병 제작 계산기 {key} 서버 {keywords}를 실행합니다.")
+                                time.sleep(0.3)
+                                webbrowser.open(f"https://geota.co.kr/gersang/mercenary?serverId={serverId}&keyword={keywords}")
+                                flag = False
                         elif "종료" in subText or "그만" in subText or "끝" in subText:
                             speak("도움이 필요하시면 언제든지 불러주세요. 안녕히 계세요!")
                             flag = False
@@ -138,6 +157,7 @@ if __name__ == "__main__":
                         else:
                             speak("다시 말씀해 주세요.")
                             flag = True
+                        
                             
                                  
                                 
