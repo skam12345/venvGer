@@ -143,6 +143,6 @@ if __name__ == "__main__":
                                 
                         
             except sr.UnknownValueError:
-                print("😅 인식 실패 (잡음 또는 불명확한 발화)")
+                print("😅 Failed to Recognition (noize or uncertain utterance)")
             except sr.RequestError as e:
-                print("API 요청 에러:", e)
+                print("Failed to request Error:", e)
