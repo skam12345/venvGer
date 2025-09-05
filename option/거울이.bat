@@ -33,6 +33,39 @@ if not "%CUR_VERSION%"=="%PY_VERSION%" (
     rd /s /q "%TEMP_DIR%"
 )
 
+@echo off
+setlocal
+
+:: 관리자 권한 확인
+net session >nul 2>&1
+if %errorLevel% NEQ 0 (
+    echo ⚠️ 관리자 권한으로 다시 실행해주세요!
+    pause
+    exit /b
+)
+
+:: Java 설치 여부 확인
+java -version >nul 2>&1
+if %errorLevel% EQU 0 (
+    echo ✅ Java is already installed.
+    java -version
+    goto :eof
+)
+
+echo ⏳ Java not found. Installing Microsoft OpenJDK 21...
+
+:: OpenJDK 21 설치 (무인 설치)
+winget install --id Microsoft.OpenJDK.21 --exact --silent --accept-source-agreements --accept-package-agreements
+
+:: JAVA_HOME 설정
+setx -m JAVA_HOME "C:\Program Files\Microsoft\jdk-21" >nul
+
+:: PATH에 추가
+setx -m PATH "%PATH%;C:\Program Files\Microsoft\jdk-21\bin" >nul
+
+echo ✅ Installation complete. Please open a new terminal and run:
+echo     java -version
+
 echo ==== Completed Worked ====
 
 :: ====== 가상환경 처리 ======
